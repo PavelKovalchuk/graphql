@@ -37,3 +37,10 @@ mutation {
     age
   }
 }
+
+// delete user
+mutation {
+  deleteUser(id: "nPUg0DP") {
+    id
+  }
+}
