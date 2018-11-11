@@ -1,0 +1,39 @@
+query findCompany {
+  google: company(id: "2") {
+    ...companyDetails
+    users {
+      id
+      firstName
+      company {
+        name
+      }
+    }
+  }
+  apple: company(id: "1") {
+    ...companyDetails
+    users {
+      id
+      firstName
+      company {
+        name
+      }
+    }
+  }
+}
+
+fragment companyDetails on Company {
+  id
+  name
+  description
+}
+
+
+// add User
+
+mutation {
+  addUser(firstName: " Stiven", age: 23) {
+    id
+    firstName
+    age
+  }
+}
