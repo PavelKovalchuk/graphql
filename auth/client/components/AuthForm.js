@@ -34,6 +34,9 @@ class AuthForm extends Component{
               onChange={e => this.setState({password: e.target.value})}
             />
           </div>
+          <blockquote className="materialize-red-text materialize-red lighten-4 errors">
+            {this.props.errors.map(error => <div key={error}>{error}</div>)}
+          </blockquote>
           <button className="btn">Submit</button>
         </form>
       </div>
