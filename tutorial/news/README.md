@@ -1,8 +1,12 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
+### `yarn dev`
 
-In the project directory, you can run:
+From server directory to run server playground.<br>
+http://localhost:3000/playground
+
+### In the project directory, you can run:
 
 ### `npm start`
 
