@@ -6,6 +6,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 From server directory to run server playground.<br>
 http://localhost:3000/playground
 
+### `yarn start`
+if you only want to start the server without opening a Playground
+
 ### In the project directory, you can run:
 
 ### `npm start`
