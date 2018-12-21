@@ -1,6 +1,10 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
+
+### `prettier --write "src/**/*.js"` 
+- run prettier
+
 ### `yarn dev`
 
 From server directory to run server playground.<br>
