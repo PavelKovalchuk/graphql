@@ -4,7 +4,6 @@ import {Mutation} from "react-apollo";
 import {SIGNUP_MUTATION} from "../queries/SIGNUP_MUTATION";
 import {LOGIN_MUTATION} from "../queries/LOGIN_MUTATION";
 
-
 class Login extends Component {
   state = {
     login: true, // switch between Login and SignUp

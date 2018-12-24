@@ -3,7 +3,6 @@ import {withApollo} from "react-apollo";
 import Link from "./Link";
 import {FEED_SEARCH_QUERY} from "../queries/FEED_SEARCH_QUERY";
 
-
 class Search extends Component {
   state = {
     links: [],

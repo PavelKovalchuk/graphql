@@ -4,7 +4,6 @@ import {timeDifferenceForDate} from "../utils";
 import Mutation from "react-apollo/Mutation";
 import {VOTE_MUTATION} from "../queries/VOTE_MUTATION";
 
-
 class Link extends Component {
   render() {
     const authToken = localStorage.getItem(AUTH_TOKEN);
