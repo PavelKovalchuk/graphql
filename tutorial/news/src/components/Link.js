@@ -25,15 +25,27 @@ const VOTE_MUTATION = gql`
 
 class Link extends Component {
   render() {
-    console.log("Link props", this.props);
     const authToken = localStorage.getItem(AUTH_TOKEN);
     return (
       <div className="flex mt2 items-start">
         <div className="flex items-center">
           <span className="gray">{this.props.index + 1}.</span>
           {authToken && (
-            <Mutation mutation={VOTE_MUTATION} variables={{ linkId: this.props.link.id }}>
-              {voteMutation => (
+            <Mutation
+              mutation={VOTE_MUTATION}
+              variables={{linkId: this.props.link.id}}
+              /**
+               * will be called directly after the server returned the response.
+               * It receives the payload of the mutation (data) and the current cache (store) as arguments.
+               * You can then use this input to determine a new state for the cache.
+               */
+              update={(store, {data: {vote}}) => {
+                console.log("update store", store);
+                console.log("update vote", vote);
+                this.props.updateStoreAfterVote(store, vote, this.props.link.id);
+              }}
+            >
+              {(voteMutation) => (
                 <div className="ml1 gray f11" onClick={voteMutation}>
                   ▲
                 </div>
