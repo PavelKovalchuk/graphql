@@ -8,6 +8,7 @@ const { APP_SECRET, getUserId } = require('../utils')
 
 function post(parent, args, context) {
   const userId = getUserId(context);
+  // const userId = "cjpy5xgjp0dp90a55oo4gum5l";
   return context.db.mutation.createLink({
     data: {
       url: args.url,

@@ -10,6 +10,9 @@ import {InMemoryCache} from "apollo-cache-inmemory";
 import {BrowserRouter} from "react-router-dom";
 import {AUTH_TOKEN} from "./constants";
 import {setContext} from "apollo-link-context";
+import {split} from "apollo-link";
+import {WebSocketLink} from "apollo-link-ws";
+import {getMainDefinition} from "apollo-utilities";
 
 /**
  * will connect your ApolloClient instance with the GraphQL API,
@@ -37,8 +40,43 @@ const authLink = setContext((_, {headers}) => {
   };
 });
 
+/**
+ *  wsLink represents the WebSocket connection.
+ *  Use split for proper “routing” of the requests and update the constructor call of ApolloClient.
+ *  knows the subscriptions endpoint.
+ *  also authenticating the websocket connection with the user’s token that you retrieve from localStorage
+ * @type {WebSocketLink}
+ */
+const wsLink = new WebSocketLink({
+  uri: `ws://localhost:4000`,
+  options: {
+    reconnect: true,
+    connectionParams: {
+      authToken: localStorage.getItem(AUTH_TOKEN),
+    },
+  },
+});
+
+/**
+ * split is used to “route” a request to a specific middleware link.
+ *  It takes three arguments, the first one is a test function which returns a boolean.
+ *  The remaining two arguments are again of type ApolloLink.
+ *  If test returns true, the request will be forwarded to the link passed as the second argument.
+ *  If false, to the third one.
+ *  In your case, the test function is checking whether the requested operation is a subscription.
+ * @type {ApolloLink}
+ */
+const link = split(
+  ({query}) => {
+    const {kind, operation} = getMainDefinition(query);
+    return kind === "OperationDefinition" && operation === "subscription";
+  },
+  wsLink,
+  authLink.concat(httpLink)
+);
+
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link,
   cache: new InMemoryCache(),
 });
 
