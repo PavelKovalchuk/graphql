@@ -1,23 +1,9 @@
 import React, {Component} from "react";
 import {AUTH_TOKEN} from "../constants";
 import {Mutation} from "react-apollo";
-import gql from "graphql-tag";
+import {SIGNUP_MUTATION} from "../queries/SIGNUP_MUTATION";
+import {LOGIN_MUTATION} from "../queries/LOGIN_MUTATION";
 
-const SIGNUP_MUTATION = gql`
-  mutation SignupMutation($email: String!, $password: String!, $name: String!) {
-    signup(email: $email, password: $password, name: $name) {
-      token
-    }
-  }
-`;
-
-const LOGIN_MUTATION = gql`
-  mutation LoginMutation($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      token
-    }
-  }
-`;
 
 class Login extends Component {
   state = {

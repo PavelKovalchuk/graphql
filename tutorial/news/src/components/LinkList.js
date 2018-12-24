@@ -1,86 +1,10 @@
 import React, {Component} from "react";
 import Link from "./Link";
 import {Query} from "react-apollo";
-import gql from "graphql-tag";
+import {FEED_QUERY} from "../queries/FEED_QUERY";
+import {NEW_LINKS_SUBSCRIPTION} from "../queries/NEW_LINKS_SUBSCRIPTION";
+import {NEW_VOTES_SUBSCRIPTION} from "../queries/NEW_VOTES_SUBSCRIPTION";
 
-/***
- * create the JavaScript constant called FEED_QUERY that stores the query.
- * The gql function is used to parse the plain string that contains the GraphQL code
- */
-export const FEED_QUERY = gql`
-  {
-    feed {
-      links {
-        id
-        createdAt
-        url
-        description
-        postedBy {
-          id
-          name
-        }
-        votes {
-          id
-          user {
-            id
-          }
-        }
-      }
-    }
-  }
-`;
-
-const NEW_LINKS_SUBSCRIPTION = gql`
-  subscription {
-    newLink {
-      node {
-        id
-        url
-        description
-        createdAt
-        postedBy {
-          id
-          name
-        }
-        votes {
-          id
-          user {
-            id
-          }
-        }
-      }
-    }
-  }
-`;
-
-const NEW_VOTES_SUBSCRIPTION = gql`
-  subscription {
-    newVote {
-      node {
-        id
-        link {
-          id
-          url
-          description
-          createdAt
-          postedBy {
-            id
-            name
-          }
-          votes {
-            id
-            user {
-              id
-            }
-          }
-        }
-        user {
-          id
-        }
-      }
-    }
-  }
-`;
 
 class LinkList extends Component {
   _updateCacheAfterVote = (store, createVote, linkId) => {
